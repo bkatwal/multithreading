@@ -20,11 +20,14 @@ public class ProducerConsumerBlockingQueue {
 
     new Thread(consumer).start();
 
-
   }
 
 
 }
+
+/**
+ * there can be multiple such producers
+ */
 
 class Producer1 implements Runnable {
 
@@ -41,7 +44,7 @@ class Producer1 implements Runnable {
       Integer newInt = this.random.nextInt(100);
       blockingQueue.put(newInt);
       System.out.println("put value in queue: " + newInt);
-      Thread.sleep(500);
+      Thread.sleep(100);
     }
   }
 
@@ -66,6 +69,7 @@ class Consumer implements Runnable {
     while(true){
       Integer intFromQueue = blockingQueue.take();
       System.out.println("Taken value from queue: " + intFromQueue);
+      System.out.println("Current queue size is: " + blockingQueue.size());
       Thread.sleep(500);//to simulate some work by consumer
     }
   }
